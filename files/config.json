@@ -1,4 +1,6 @@
-{   "general": {
-        "txt": "!"
+{   "function_trigger": {
+        "loop_count": 10,
+        "thr_upload_for_run": 50,
+        "thr_download_for_run": 20
     }
 }
