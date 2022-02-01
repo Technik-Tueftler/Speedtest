@@ -5,13 +5,23 @@ import sys
 import pathlib
 import json
 from configparser import ConfigParser
+import logging
+from datetime import datetime
 
 PROJECT_NAME = "Speedtest"
 absolute_project_path = pathlib.Path(sys.argv[0].split(PROJECT_NAME, 1)[0], PROJECT_NAME)
 PATH_TO_INIT_FILE = pathlib.Path(absolute_project_path, "files", "login_data.priv")
 PATH_TO_FILE_CONFIG_FILE = pathlib.Path(absolute_project_path, "files", "config.json")
+PATH_TO_FILE_DEBUG_FILE = pathlib.Path(absolute_project_path, "files", "debug.log")
 
 configuration_data = dict()
+
+logger = logging.getLogger("Debug-Log")
+logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler(PATH_TO_FILE_DEBUG_FILE)
+fh.setLevel(logging.DEBUG)
+logger.addHandler(fh)
+logger.debug(f"Programmstart: {datetime.today().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
 def load_configuration():
