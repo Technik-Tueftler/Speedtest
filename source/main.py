@@ -6,15 +6,8 @@ import time
 import os
 import threading
 import speedtest
-# from configParser import get_configuration
 from fritzconnection.lib.fritzstatus import FritzStatus
 from datetime import datetime
-
-
-# read_successful, cfg = get_configuration("fritzbox")
-# fc = FritzStatus(address=cfg["address"], password=cfg["password"])
-# fc = FritzStatus(address=cfg["address"])
-# fc = FritzStatus(address="fritz.box")
 
 
 @dataclass
@@ -203,10 +196,3 @@ if __name__ == "__main__":
     if verified_env_data["all_verified"] is not False:
         main(verified_env_data)
 
-"""
-'max_download_fritzbox':  97287280,
-'max_upload_fritzbox':    39843000,
-'avg_download_speedtest': 85578793,
-'avg_upload_speedtest':   33149670,
-'ping_speedtest': 19}
-"""
