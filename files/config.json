@@ -1,7 +1,0 @@
-{   "function_trigger": {
-        "check_low_network_load_time": 10,
-        "thr_upload_for_run": 20,
-        "thr_download_for_run": 50,
-        "datetime_format": "%y-%m-%d %H:%M:%S"
-    }
-}
