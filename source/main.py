@@ -254,6 +254,5 @@ if __name__ == "__main__":
     print("Start program")
     verified_env_data = check_and_verify_env_variables()
     if verified_env_data["all_verified"] is not False:
-        # verified_env_data["timer_runtime"] = verified_env_data["TEST_REPETITION_TIME"]
         verified_env_data["timer_runtime"] = 1
         main(verified_env_data)
