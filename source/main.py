@@ -8,6 +8,7 @@ import threading
 import speedtest
 from fritzconnection.lib.fritzstatus import FritzStatus
 from datetime import datetime, timedelta
+import db
 
 
 @dataclass
@@ -106,8 +107,6 @@ def receive_network_load_from_fritzbox(communication_interface: dict) -> None:
         total_downstream_raw.append(round(downstream_raw * 8))
         total_upstream_raw.append(round(upstream_raw * 8))
         time.sleep(0.3)
-    print(total_downstream_raw)
-    print(total_upstream_raw)
     communication_interface["max_download_fritzbox"] = max(total_downstream_raw)
     communication_interface["max_upload_fritzbox"] = max(total_upstream_raw)
     communication_interface["last_run_datetime"] = datetime.now(). \
@@ -173,6 +172,7 @@ def main(env_data: dict) -> None:
                                 communication["avg_download_speedtest"],
                                 communication["avg_upload_speedtest"])
             communication["timer_runtime"] = communication["TEST_REPETITION_TIME"]
+            db.add_measurement(communication)
             print("End Speedtest measurement")
 
 
@@ -195,7 +195,7 @@ def check_and_verify_env_variables() -> dict:
         if os.getenv("IP_FRITZBOX") is None:
             print(f"ERROR: No address was given. Therefore the default value {ip_addr_fritzbox} "
                   f"was set. However, no connection could be established. Please enter a "
-                  f"valid PI address.")
+                  f"valid IP address.")
         else:
             print(f"ERROR: Can't connect to fritzbox! Please check the given IP address: "
                   f"{ip_addr_fritzbox}.")
@@ -244,6 +244,8 @@ def check_and_verify_env_variables() -> dict:
         environment_data["all_verified"] &= False
         print(f"ERROR: The value for the variable TEST_REPEAT_TIME "
               f"is not an integer")
+
+    db.check_and_verify_database_connection()
 
     return environment_data
 
