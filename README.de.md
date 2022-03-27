@@ -1,7 +1,7 @@
 Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet Geschwindigkeitstest durchführt. Dabei wird nicht der gemittelte Wert des online Services als Ergebnis genommen, sondern im lokalen Netzwerk den Spitzenwert aus der Fritzbox gelesen. So erhält man einen annähernd realen Wert, wenn im lokalen Netz zum Beispiel gerade ein Streaming läuft und so das Netzwerk zusätzlich belastet wird.
 
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
- • [deutsche readme](https://github.com/willmcgugan/rich/blob/master/README.de.md)
+ • [deutsche readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.de.md)
 
 ## Funktionsübersicht 
 ```mermaid
