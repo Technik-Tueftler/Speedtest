@@ -90,7 +90,7 @@ def check_low_network_load(communication_interface: dict) -> None:
         check_is_ok &= False
     current_downstream_raw_in_mbit = int(total_downstream_raw * 8 / 1024 / 1024 / loop_count)
     communication_interface["current_network_load_down"] = current_downstream_raw_in_mbit
-    if current_downstream_raw_in_mbit > communication_interface["MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN"]:
+    if current_downstream_raw_in_mbit > communication_interface["MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN"]:
         check_is_ok &= False
     communication_interface["low_stream_rate"] = check_is_ok
     if check_is_ok:
