@@ -52,6 +52,7 @@ Currently the following databases are supported, which can be initialized via a 
 |---|---|
 |MariaDB|mariadb+mariadbconnector://user_name:Password123!@127.0.0.1:3306/database_name|
 |SQLite|sqlite:///path_to_file/database_name.sqlite3|
+|PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
 
 If no connection string is specified, the program automatically creates an SQLite file and saves it:  
 `Start locally via main.py:` Speedtest/files/  

@@ -51,6 +51,7 @@ Aktuell werden folgende Datenbanken unterstützt, welche über einen Verbindungs
 |---|---|
 |MariaDB|mariadb+mariadbconnector://user_name:Passwort123!@127.0.0.1:3306/datenbank_name|
 |SQLite|sqlite:///pfad_zur_datei/datenbank.sqlite3|
+|PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
 
 Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein SQLite File und speichert es:  
 `Start lokal über main.py:` Speedtest/files/  
