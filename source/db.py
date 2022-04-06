@@ -10,6 +10,7 @@ from datetime import datetime
 from dataclasses import dataclass
 
 Base = declarative_base()
+connector = None
 
 if os.getenv("WORKING_DIR") is None:
     sql_db_path = "sqlite:///../files/measurements.sqlite3"
@@ -52,7 +53,7 @@ class SQLAlchemyConnectionManager:
 
 
 def add_measurement(data: dict) -> None:
-    with SQLAlchemyConnectionManager(sql_db_path) as conn:
+    with SQLAlchemyConnectionManager(connector) as conn:
         conn.add(Measurements(timestamp=datetime.now(),
                               max_download_fritzbox=data["max_download_fritzbox"],
                               max_upload_fritzbox=data["max_upload_fritzbox"],
@@ -62,6 +63,7 @@ def add_measurement(data: dict) -> None:
 
 
 def check_and_verify_database_connection() -> None:
+    global connector
     connector = os.getenv("DB_CONNECTOR", sql_db_path)
     try:
         engine = create_engine(connector)
@@ -71,6 +73,7 @@ def check_and_verify_database_connection() -> None:
         engine.dispose()
 
     except sqlalchemy.exc.OperationalError as e:
+        connector = sql_db_path
         print(f"ERROR: No connection to the database is possible. Aborted with error: [{e}]. "
               f"Please check DB_CONNECTOR. The measurements will be stored in a SQLite anyway.")
         engine = create_engine(sql_db_path)
