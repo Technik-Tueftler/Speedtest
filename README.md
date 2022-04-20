@@ -38,13 +38,13 @@ graph TB
 ## Environment variables
 |Variable|Explanation|Unit|Default value|
 |---|---|---|---|
-|IP_FRITZBOX|IP address or hostname of the Fritzbox in the local network|-|fritz.box|
-|S_TIME_CHECK_LOW_NETWORK_LOAD|Runtime of measurement to check network load|seconds|10|
-|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Limit value for the download when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|10|
-|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Limit for the upload when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|2|
-|TEST_REPETITION_TIME|Repeat time of the speed test.|seconds|21600|
-|TEST_REPEAT_TIME|Repeat time for the test if the network load test failed. Example, if the network load has exceeded the limits |seconds|3600|
-|DB_CONNECTOR|Connection string for configuring the database connection. See chapter Database Connections.|-|sqlite:///./Speedtest/files/measurements.sqlite3|
+|IP_FRITZBOX|IP address or hostname of the Fritzbox in the local network|-|`fritz.box`|
+|S_TIME_CHECK_LOW_NETWORK_LOAD|Runtime of measurement to check network load|seconds|`10`|
+|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Limit value for the download when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|`10`|
+|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Limit for the upload when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|`2`|
+|TEST_REPETITION_TIME|Repeat time of the speed test.|seconds|`21600`|
+|TEST_REPEAT_TIME|Repeat time for the test if the network load test failed. Example, if the network load has exceeded the limits |seconds|`3600`|
+|DB_CONNECTOR|Connection string for configuring the database connection. See chapter Database Connections.|-|`sqlite:///./Speedtest/files/measurements.sqlite3`|
 
 
 ## Database connection
@@ -52,14 +52,15 @@ Currently the following databases are supported, which can be initialized via a 
 
 |Database|Example|
 |---|---|
-|MariaDB|mariadb+mariadbconnector://user_name:Password123!@127.0.0.1:3306/database_name|
-|SQLite|sqlite:///path_to_file/database_name.sqlite3|
-|PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
+|MariaDB|`mariadb+mariadbconnector://user_name:Password123!@127.0.0.1:3306/database_name`|
+|SQLite|`sqlite:///path_to_file/database_name.sqlite3`|
+|PostgreSQL|`postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name`|
 
 If no connection string is specified, the program automatically creates an SQLite file and saves it:
-`Start locally via main.py:` Speedtest/files/
-`Start as Docker container without specifying the volume:` /user/app/Speedtest/files/
-`Start as Docker container with volume specified:` /spec_path/
+
+* If started locally via main.py: `Speedtest/files/`
+* If started as Docker container without specifying the volume: `/user/app/Speedtest/files/`
+* If started as Docker container with volume specified: `/spec_path/`
 
 ## Database structure
 |name|type|null|standard|explanation|unit|
