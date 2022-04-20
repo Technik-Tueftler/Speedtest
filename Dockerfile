@@ -1,4 +1,4 @@
-FROM arm64v8/python:3.10.2-buster
+FROM python:3.10.2-buster
 
 ENV WORKING_DIR /user/app
 WORKDIR $WORKING_DIR
