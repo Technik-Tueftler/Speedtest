@@ -1,9 +1,11 @@
+# Speedtest
+
 Speedtest is an app that performs an Internet speed test at adjustable time intervals. The averaged value of the online service is not taken as the result, but the peak value from the Fritzbox is read in the local network. In this way, you get an approximately real value when, for example, streaming is running in the local network and the network is additionally loaded.
 
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
  • [deutsche readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.de.md)
 
-## Function overview 
+## Function overview
 ```mermaid
 graph TB
     subgraph Main
@@ -54,10 +56,10 @@ Currently the following databases are supported, which can be initialized via a 
 |SQLite|sqlite:///path_to_file/database_name.sqlite3|
 |PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
 
-If no connection string is specified, the program automatically creates an SQLite file and saves it:  
-`Start locally via main.py:` Speedtest/files/  
-`Start as Docker container without specifying the volume:` /user/app/Speedtest/files/  
-`Start as Docker container with volume specified:` /spec_path/  
+If no connection string is specified, the program automatically creates an SQLite file and saves it:
+`Start locally via main.py:` Speedtest/files/
+`Start as Docker container without specifying the volume:` /user/app/Speedtest/files/
+`Start as Docker container with volume specified:` /spec_path/
 
 ## Database structure
 |name|type|null|standard|explanation|unit|
