@@ -25,4 +25,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "${{ env.REGISTRY }}/speedtest:latest"
+          tags: "${{ env.REGISTRY }}/${{ github.actor }}/speedtest:latest"
