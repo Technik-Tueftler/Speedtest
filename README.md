@@ -1,3 +1,4 @@
+# Speedtest
 [![Build new image and publish to dockerhub](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml)
 
 Speedtest is an app that performs an Internet speed test at adjustable time intervals. The averaged value of the online service is not taken as the result, but the peak value from the Fritzbox is read in the local network. In this way, you get an approximately real value when, for example, streaming is running in the local network and the network is additionally loaded.
@@ -5,7 +6,7 @@ Speedtest is an app that performs an Internet speed test at adjustable time inte
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
  • [deutsche readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.de.md)
 
-## Function overview 
+## Function overview
 ```mermaid
 graph TB
     subgraph Main
@@ -37,14 +38,14 @@ graph TB
 
 ## Environment variables
 |Variable|Explanation|Unit|Default value|
-|---|---|---|---|
-|IP_FRITZBOX|IP address or hostname of the Fritzbox in the local network|-|fritz.box|
-|S_TIME_CHECK_LOW_NETWORK_LOAD|Runtime of measurement to check network load|seconds|10|
-|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Limit value for the download when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|10|
-|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Limit for the upload when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|2|
-|TEST_REPETITION_TIME|Repeat time of the speed test.|seconds|21600|
-|TEST_REPEAT_TIME|Repeat time for the test if the network load test failed. Example, if the network load has exceeded the limits |seconds|3600|
-|DB_CONNECTOR|Connection string for configuring the database connection. See chapter Database Connections.|-|sqlite:///./Speedtest/files/measurements.sqlite3|
+|---|---|:-:|---|
+|IP_FRITZBOX|IP address or hostname of the Fritzbox in the local network|-|`fritz.box`|
+|S_TIME_CHECK_LOW_NETWORK_LOAD|Runtime of measurement to check network load|seconds|`10`|
+|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Limit value for the download when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|`10`|
+|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Limit for the upload when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|`2`|
+|TEST_REPETITION_TIME|Repeat time of the speed test.|seconds|`21600`|
+|TEST_REPEAT_TIME|Repeat time for the test if the network load test failed. Example, if the network load has exceeded the limits |seconds|`3600`|
+|DB_CONNECTOR|Connection string for configuring the database connection. See chapter Database Connections.|-|`sqlite:///./Speedtest/files/measurements.sqlite3`|
 
 
 ## Database connection
@@ -52,22 +53,23 @@ Currently the following databases are supported, which can be initialized via a 
 
 |Database|Example|
 |---|---|
-|MariaDB|mariadb+mariadbconnector://user_name:Password123!@127.0.0.1:3306/database_name|
-|SQLite|sqlite:///path_to_file/database_name.sqlite3|
-|PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
+|MariaDB|`mariadb+mariadbconnector://user_name:Password123!@127.0.0.1:3306/database_name`|
+|SQLite|`sqlite:///path_to_file/database_name.sqlite3`|
+|PostgreSQL|`postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name`|
 
-If no connection string is specified, the program automatically creates an SQLite file and saves it:  
-`Start locally via main.py:` Speedtest/files/  
-`Start as Docker container without specifying the volume:` /user/app/Speedtest/files/  
-`Start as Docker container with volume specified:` /spec_path/  
+If no connection string is specified, the program automatically creates an SQLite file and saves it:
+
+* If started locally via main.py: `Speedtest/files/`
+* If started as Docker container without specifying the volume: `/user/app/Speedtest/files/`
+* If started as Docker container with volume specified: `/spec_path/`
 
 ## Database structure
 |name|type|null|standard|explanation|unit|
-|---|---|---|---|---|---|
-|id|int(11)|No|AUTO_INCREMENT|Unique ID of the entry|-|
-|timestamp|timestamp|No|ON UPDATE CURRENT_TIMESTAMP()|Time of finished and entered measurement|-|
-|max_download_fritzbox|int(11)|Yes|NULL|Maximum value for download from Fritzbox|Bits/s|
-|max_upload_fritzbox|int(11)|Yes|NULL|Maximum value for upload from Fritzbox|Bits/s|
-|avg_download_speedtest|int(11)|Yes|NULL|Returned value for download from www.speedtest.net|Bits/s|
-|avg_upload_speedtest|int(11)|Yes|NULL|Returned value for upload of www.speedtest.net|bits/s|
-|ping_speedtest|int(11)|Yes|NULL|Returned value for the response time of www.speedtest.net. This value varies widely and is usually very high. The assumption is that the program runtime is also included here and does not reflect the true response time.|ms|
+|---|:-:|:-:|---|---|:-:|
+|id|int(11)|No|`AUTO_INCREMENT`|Unique ID of the entry|-|
+|timestamp|timestamp|No|`ON UPDATE CURRENT_TIMESTAMP()`|Time of finished and entered measurement|-|
+|max_download_fritzbox|int(11)|Yes|`NULL`|Maximum value for download from Fritzbox|Bits/s|
+|max_upload_fritzbox|int(11)|Yes|`NULL`|Maximum value for upload from Fritzbox|Bits/s|
+|avg_download_speedtest|int(11)|Yes|`NULL`|Returned value for download from www.speedtest.net|Bits/s|
+|avg_upload_speedtest|int(11)|Yes|`NULL`|Returned value for upload of www.speedtest.net|bits/s|
+|ping_speedtest|int(11)|Yes|`NULL`|Returned value for the response time of www.speedtest.net. This value varies widely and is usually very high. The assumption is that the program runtime is also included here and does not reflect the true response time.|ms|

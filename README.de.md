@@ -1,3 +1,4 @@
+# Speedtest
 [![Build new image and publish to dockerhub](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml)
 
 Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet Geschwindigkeitstest durchführt. Dabei wird nicht der gemittelte Wert des online Services als Ergebnis genommen, sondern im lokalen Netzwerk den Spitzenwert aus der Fritzbox gelesen. So erhält man einen annähernd realen Wert, wenn im lokalen Netz zum Beispiel gerade ein Streaming läuft und so das Netzwerk zusätzlich belastet wird.
@@ -5,7 +6,7 @@ Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet G
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
  • [deutsche readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.de.md)
 
-## Funktionsübersicht 
+## Funktionsübersicht
 ```mermaid
 graph TB
     subgraph Main
@@ -37,39 +38,40 @@ graph TB
 
 ## Umgebungsvariablen
 |Variable|Erklärung|Einheit|Standardwert|
-|---|---|---|---|
-|IP_FRITZBOX|IP Adresse oder Hostname der Fritzbox im lokalen Netzwerk|-|fritz.box|
-|S_TIME_CHECK_LOW_NETWORK_LOAD|Laufzeit der Messung zum prüfen der Netzwerklast|Sekunden|10|
-|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Grenzwert für den download beim prüfen der Netzwerklast. Wird dieser Überschritten, wird kein Speedtest durchgeführt.|Mbit/s|10|
-|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Grenzwert für den upload beim prüfen der Netzwerklast. Wird dieser Überschritten, wird kein Speedtest durchgeführt.|Mbit/s|2|
-|TEST_REPETITION_TIME|Wiederholungszeit des Speedtests.|Sekunden|21600|
-|TEST_REPEAT_TIME|Wiederholungszeit für den Test, wenn die Prüfung der Netzwerklast fehlgeschlagen ist. Beispiel, wenn die Netzwerklast die Grenzwerte überschritten hat.|Sekunden|3600|
-|DB_CONNECTOR|Verbindungsschlüpfi¹ zum konfigurieren der Datenbankverbindung. Siehe hierzu Kapitel Datenbankverbindungen.|-|sqlite:///./Speedtest/files/measurements.sqlite3|
+|---|---|:-:|---|
+|IP_FRITZBOX|IP Adresse oder Hostname der Fritzbox im lokalen Netzwerk|-|`fritz.box`|
+|S_TIME_CHECK_LOW_NETWORK_LOAD|Laufzeit der Messung zum prüfen der Netzwerklast|Sekunden|`10`|
+|MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Grenzwert für den download beim prüfen der Netzwerklast. Wird dieser Überschritten, wird kein Speedtest durchgeführt.|Mbit/s|`10`|
+|MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN|Grenzwert für den upload beim prüfen der Netzwerklast. Wird dieser Überschritten, wird kein Speedtest durchgeführt.|Mbit/s|`2`|
+|TEST_REPETITION_TIME|Wiederholungszeit des Speedtests.|Sekunden|`21600`|
+|TEST_REPEAT_TIME|Wiederholungszeit für den Test, wenn die Prüfung der Netzwerklast fehlgeschlagen ist. Beispiel, wenn die Netzwerklast die Grenzwerte überschritten hat.|Sekunden|`3600`|
+|DB_CONNECTOR|Verbindungsschlüpfi¹ zum konfigurieren der Datenbankverbindung. Siehe hierzu Kapitel Datenbankverbindungen.|-|`sqlite:///./Speedtest/files/measurements.sqlite3`|
 
 ## Datenbankverbindung
-Aktuell werden folgende Datenbanken unterstützt, welche über einen Verbindungsschlüpfi initialisiert werden können.
+Aktuell werden folgende Datenbanken unterstützt, welche über einen *Verbindungsschlüpfi*¹ initialisiert werden können.
 
 |Datenbank|Beispiel|
 |---|---|
-|MariaDB|mariadb+mariadbconnector://user_name:Passwort123!@127.0.0.1:3306/datenbank_name|
-|SQLite|sqlite:///pfad_zur_datei/datenbank.sqlite3|
-|PostgreSQL|postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name|
+|MariaDB|`mariadb+mariadbconnector://user_name:Passwort123!@127.0.0.1:3306/datenbank_name`|
+|SQLite|`sqlite:///pfad_zur_datei/datenbank.sqlite3`|
+|PostgreSQL|`postgresql+psycopg2://user_name:Password123!@127.0.0.1/database_name`|
 
-Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein SQLite File und speichert es:  
-`Start lokal über main.py:` Speedtest/files/  
-`Start als Docker Container ohne angabe des Volumes:` /user/app/Speedtest/files/  
-`Start als Docker Container mit angabe des Volumes:` /angegebener_pfad/  
+Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein SQLite File und speichert es:
+
+* Start lokal über main.py: `Speedtest/files/`
+* Start als Docker Container ohne angabe des Volumes: `/user/app/Speedtest/files/`
+* Start als Docker Container mit angabe des Volumes: `/angegebener_pfad/`
 
 ## Datenbankstruktur
 |Name|Typ|Null|Standard|Erklärung|Einheit|
-|---|---|---|---|---|---|
-|id|int(11)|Nein|AUTO_INCREMENT|Eindeutige ID des Eintrages|-|
-|timestamp|timestamp|Nein|ON UPDATE CURRENT_TIMESTAMP()|Zeitpunkt der beendeten und eingetragenen Messung|-|
-|max_download_fritzbox|int(11)|Ja|NULL|Maximalwert für den Download aus der Fritzbox|Bits/s|
-|max_upload_fritzbox|int(11)|Ja|NULL|Maximalwert für den Upload aus der Fritzbox|Bits/s|
-|avg_download_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für den Download von www.speedtest.net|Bits/s|
-|avg_upload_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für den Upload von www.speedtest.net|Bits/s|
-|ping_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
+|---|:-:|:-:|---|---|:-:|
+|id|int(11)|Nein|`AUTO_INCREMENT`|Eindeutige ID des Eintrages|-|
+|timestamp|timestamp|Nein|`ON UPDATE CURRENT_TIMESTAMP()`|Zeitpunkt der beendeten und eingetragenen Messung|-|
+|max_download_fritzbox|int(11)|Ja|`NULL`|Maximalwert für den Download aus der Fritzbox|Bits/s|
+|max_upload_fritzbox|int(11)|Ja|`NULL`|Maximalwert für den Upload aus der Fritzbox|Bits/s|
+|avg_download_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Download von www.speedtest.net|Bits/s|
+|avg_upload_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Upload von www.speedtest.net|Bits/s|
+|ping_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
 
 ----
 ¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
