@@ -1,4 +1,5 @@
 # Speedtest
+[![Build new image and publish to dockerhub](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml)
 
 Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet Geschwindigkeitstest durchführt. Dabei wird nicht der gemittelte Wert des online Services als Ergebnis genommen, sondern im lokalen Netzwerk den Spitzenwert aus der Fritzbox gelesen. So erhält man einen annähernd realen Wert, wenn im lokalen Netz zum Beispiel gerade ein Streaming läuft und so das Netzwerk zusätzlich belastet wird.
 
@@ -73,5 +74,9 @@ Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein 
 |ping_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
 
 ----
+<<<<<<< HEAD
 
 ¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
+=======
+¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
+>>>>>>> 6f69b6fc6f84e05d8dfbe9855b0e5b51d2f20e78
