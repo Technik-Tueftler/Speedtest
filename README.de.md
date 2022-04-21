@@ -38,7 +38,7 @@ graph TB
 
 ## Umgebungsvariablen
 |Variable|Erklärung|Einheit|Standardwert|
-|---|---|---|---|
+|---|---|:-:|---|
 |IP_FRITZBOX|IP Adresse oder Hostname der Fritzbox im lokalen Netzwerk|-|`fritz.box`|
 |S_TIME_CHECK_LOW_NETWORK_LOAD|Laufzeit der Messung zum prüfen der Netzwerklast|Sekunden|`10`|
 |MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Grenzwert für den download beim prüfen der Netzwerklast. Wird dieser Überschritten, wird kein Speedtest durchgeführt.|Mbit/s|`10`|
@@ -64,15 +64,14 @@ Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein 
 
 ## Datenbankstruktur
 |Name|Typ|Null|Standard|Erklärung|Einheit|
-|---|---|---|---|---|---|
-|id|int(11)|Nein|AUTO_INCREMENT|Eindeutige ID des Eintrages|-|
-|timestamp|timestamp|Nein|ON UPDATE CURRENT_TIMESTAMP()|Zeitpunkt der beendeten und eingetragenen Messung|-|
-|max_download_fritzbox|int(11)|Ja|NULL|Maximalwert für den Download aus der Fritzbox|Bits/s|
-|max_upload_fritzbox|int(11)|Ja|NULL|Maximalwert für den Upload aus der Fritzbox|Bits/s|
-|avg_download_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für den Download von www.speedtest.net|Bits/s|
-|avg_upload_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für den Upload von www.speedtest.net|Bits/s|
-|ping_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
+|---|:-:|:-:|---|---|:-:|
+|id|int(11)|Nein|`AUTO_INCREMENT`|Eindeutige ID des Eintrages|-|
+|timestamp|timestamp|Nein|`ON UPDATE CURRENT_TIMESTAMP()`|Zeitpunkt der beendeten und eingetragenen Messung|-|
+|max_download_fritzbox|int(11)|Ja|`NULL`|Maximalwert für den Download aus der Fritzbox|Bits/s|
+|max_upload_fritzbox|int(11)|Ja|`NULL`|Maximalwert für den Upload aus der Fritzbox|Bits/s|
+|avg_download_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Download von www.speedtest.net|Bits/s|
+|avg_upload_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Upload von www.speedtest.net|Bits/s|
+|ping_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
 
 ----
-
 ¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.

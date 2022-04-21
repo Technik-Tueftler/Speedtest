@@ -38,7 +38,7 @@ graph TB
 
 ## Environment variables
 |Variable|Explanation|Unit|Default value|
-|---|---|---|---|
+|---|---|:-:|---|
 |IP_FRITZBOX|IP address or hostname of the Fritzbox in the local network|-|`fritz.box`|
 |S_TIME_CHECK_LOW_NETWORK_LOAD|Runtime of measurement to check network load|seconds|`10`|
 |MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN|Limit value for the download when checking the network load. If this is exceeded, no speed test is performed.|Mbit/s|`10`|
@@ -65,11 +65,11 @@ If no connection string is specified, the program automatically creates an SQLit
 
 ## Database structure
 |name|type|null|standard|explanation|unit|
-|---|---|---|---|---|---|
-|id|int(11)|No|AUTO_INCREMENT|Unique ID of the entry|-|
-|timestamp|timestamp|No|ON UPDATE CURRENT_TIMESTAMP()|Time of finished and entered measurement|-|
-|max_download_fritzbox|int(11)|Yes|NULL|Maximum value for download from Fritzbox|Bits/s|
-|max_upload_fritzbox|int(11)|Yes|NULL|Maximum value for upload from Fritzbox|Bits/s|
-|avg_download_speedtest|int(11)|Yes|NULL|Returned value for download from www.speedtest.net|Bits/s|
-|avg_upload_speedtest|int(11)|Yes|NULL|Returned value for upload of www.speedtest.net|bits/s|
-|ping_speedtest|int(11)|Yes|NULL|Returned value for the response time of www.speedtest.net. This value varies widely and is usually very high. The assumption is that the program runtime is also included here and does not reflect the true response time.|ms|
+|---|:-:|:-:|---|---|:-:|
+|id|int(11)|No|`AUTO_INCREMENT`|Unique ID of the entry|-|
+|timestamp|timestamp|No|`ON UPDATE CURRENT_TIMESTAMP()`|Time of finished and entered measurement|-|
+|max_download_fritzbox|int(11)|Yes|`NULL`|Maximum value for download from Fritzbox|Bits/s|
+|max_upload_fritzbox|int(11)|Yes|`NULL`|Maximum value for upload from Fritzbox|Bits/s|
+|avg_download_speedtest|int(11)|Yes|`NULL`|Returned value for download from www.speedtest.net|Bits/s|
+|avg_upload_speedtest|int(11)|Yes|`NULL`|Returned value for upload of www.speedtest.net|bits/s|
+|ping_speedtest|int(11)|Yes|`NULL`|Returned value for the response time of www.speedtest.net. This value varies widely and is usually very high. The assumption is that the program runtime is also included here and does not reflect the true response time.|ms|
