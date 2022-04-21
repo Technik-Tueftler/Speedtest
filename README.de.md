@@ -1,3 +1,5 @@
+[![Build new image and publish to dockerhub](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml)
+
 Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet Geschwindigkeitstest durchführt. Dabei wird nicht der gemittelte Wert des online Services als Ergebnis genommen, sondern im lokalen Netzwerk den Spitzenwert aus der Fritzbox gelesen. So erhält man einen annähernd realen Wert, wenn im lokalen Netz zum Beispiel gerade ein Streaming läuft und so das Netzwerk zusätzlich belastet wird.
 
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
