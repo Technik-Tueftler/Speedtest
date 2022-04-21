@@ -74,9 +74,5 @@ Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein 
 |ping_speedtest|int(11)|Ja|NULL|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
 
 ----
-<<<<<<< HEAD
 
 ¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
-=======
-¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
->>>>>>> 6f69b6fc6f84e05d8dfbe9855b0e5b51d2f20e78
