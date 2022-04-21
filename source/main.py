@@ -114,18 +114,27 @@ def receive_network_load_from_fritzbox(communication_interface: dict) -> None:
 
 
 def measure_connection_speed(communication_interface: dict) -> None:
-    connection = speedtest.Speedtest()
-    connection.get_best_server()
-    download = connection.download()
-    upload = connection.upload()
-    ping = connection.results.ping
-    timer_thread = threading.Thread(target=overrun_timer)
-    timer_thread.start()
-    timer_thread.join()
-    communication_interface["speed_test_running"] = False
-    communication_interface["avg_download_speedtest"] = round(download)
-    communication_interface["avg_upload_speedtest"] = round(upload)
-    communication_interface["ping_speedtest"] = round(ping)
+    download = 0
+    upload = 0
+    ping = 0
+    try:
+        connection = speedtest.Speedtest()
+        connection.get_best_server()
+        download = connection.download()
+        upload = connection.upload()
+        ping = connection.results.ping
+        timer_thread = threading.Thread(target=overrun_timer)
+        timer_thread.start()
+        timer_thread.join()
+        communication_interface["measurement_successful"] = True
+    except speedtest.SpeedtestBestServerFailure as e:
+        print(f"ERROR: No connection to the speedtest server possible. Aborted with error: [{e}].")
+        communication_interface["measurement_successful"] = False
+    finally:
+        communication_interface["speed_test_running"] = False
+        communication_interface["avg_download_speedtest"] = round(download)
+        communication_interface["avg_upload_speedtest"] = round(upload)
+        communication_interface["ping_speedtest"] = round(ping)
 
 
 def main(env_data: dict) -> None:
@@ -135,6 +144,7 @@ def main(env_data: dict) -> None:
                      "ping_speedtest": 0,
                      "current_network_load_down": 0,
                      "current_network_load_up": 0,
+                     "measurement_successful": True,
                      "last_run_datetime": datetime.now().strftime("%y-%m-%d %H:%M:%S")} | env_data
     while True:
         print("--------------------------------------------------")
@@ -171,7 +181,10 @@ def main(env_data: dict) -> None:
             print_speed_results("Results Online:  ",
                                 communication["avg_download_speedtest"],
                                 communication["avg_upload_speedtest"])
-            communication["timer_runtime"] = communication["TEST_REPETITION_TIME"]
+            if communication["measurement_successful"]:
+                communication["timer_runtime"] = communication["TEST_REPETITION_TIME"]
+            else:
+                communication["timer_runtime"] = communication["TEST_REPEAT_TIME"]
             db.add_measurement(communication)
             print("End Speedtest measurement")
 
