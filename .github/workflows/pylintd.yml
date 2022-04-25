@@ -12,7 +12,7 @@ jobs:
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v3
       with:
-        path: "./requirements.txt"
+        path: "requirements.txt"
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
