@@ -43,7 +43,7 @@ except sqlalchemy.exc.ProgrammingError as err:
     print(f"ERROR: unexpected error: [{err}].")
 
 
-class Measurements(Base):  # pylint: disable=too-few-public-methods
+class Measurements(Base):
     """Table structure for measurements for easy work with an ORM"""
     __tablename__ = 'measurements'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
@@ -84,7 +84,6 @@ class SQLAlchemyConnectionManager:
 
 
 def add_measurement(data: dict) -> None:
-    """General function to add results of the speed test to the database."""
     with SQLAlchemyConnectionManager(CONNECTOR) as conn:
         conn.add(Measurements(timestamp=datetime.now(),
                               max_download_fritzbox=data["max_download_fritzbox"],
