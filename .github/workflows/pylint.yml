@@ -1,7 +1,9 @@
+name: Pylint
+
 on: pull_request
 
 jobs:
-  example:
+  build:
     runs-on: ubuntu-latest
     name: Executes pylint
     steps:
