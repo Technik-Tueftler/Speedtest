@@ -1,4 +1,4 @@
-name: Build new image and publish to dockerhub
+name: Docker image build
 on:
   push:
     tags:
