@@ -288,8 +288,6 @@ def check_and_verify_env_variables() -> dict:
         print("ERROR: The value for the variable TEST_REPEAT_TIME "
               "is not an integer")
 
-    db.check_and_verify_database_connection()
-
     return environment_data
 
 
