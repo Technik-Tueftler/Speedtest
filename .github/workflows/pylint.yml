@@ -1,4 +1,4 @@
-name: Pylint default
+name: Pylint
 
 on: [push]
 
