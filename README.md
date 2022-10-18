@@ -3,8 +3,8 @@
 
 Speedtest is an app that performs an Internet speed test at adjustable time intervals. The averaged value of the online service is not taken as the result, but the peak value from the Fritzbox is read in the local network. In this way, you get an approximately real value when, for example, streaming is running in the local network and the network is additionally loaded.
 
-[English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
- • [deutsche readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.de.md)
+[English readme](https://github.com/Technik-Tueftler/IntelligentSocketDatalogger/blob/main/README.md)
+ • [deutsche readme](https://github.com/Technik-Tueftler/IntelligentSocketDatalogger/blob/main/README.de.md)
 
 ## Function overview
 ```mermaid
@@ -73,3 +73,20 @@ If no connection string is specified, the program automatically creates an SQLit
 |avg_download_speedtest|int(11)|Yes|`NULL`|Returned value for download from www.speedtest.net|Bits/s|
 |avg_upload_speedtest|int(11)|Yes|`NULL`|Returned value for upload of www.speedtest.net|bits/s|
 |ping_speedtest|int(11)|Yes|`NULL`|Returned value for the response time of www.speedtest.net. This value varies widely and is usually very high. The assumption is that the program runtime is also included here and does not reflect the true response time.|ms|
+
+## Docker Compose Example
+````commandline
+version: "2"
+services:
+  internet_speedtest:
+    image: techniktueftler/speedtest:latest
+    container_name: speedtest
+    environment:
+      - MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN=30
+      - MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN=10
+      - TZ=Europe/Berlin
+      - DB_CONNECTOR=mariadb+mariadbconnector://User:Password@192.193.194.195:3306/speedtest
+    volumes:
+      - /srv/dev-disk-by-uuid-0815/data/speedtest:/user/app/Speedtest/files/
+    restart: unless-stopped
+````
