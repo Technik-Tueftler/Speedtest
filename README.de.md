@@ -1,6 +1,9 @@
 # Speedtest
 [![Build new image and publish to dockerhub](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/build.yml) [![Pylint](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/pylint.yml/badge.svg)](https://github.com/Technik-Tueftler/Speedtest/actions/workflows/pylint.yml)
 
+IntelligentSocketDatalogger ist eine App, bei der in einstellbaren Zeitintervallen 
+
+
 Speedtest ist eine App, welche in einstellbaren Zeitintervallen einen Internet Geschwindigkeitstest durchführt. Dabei wird nicht der gemittelte Wert des online Services als Ergebnis genommen, sondern im lokalen Netzwerk den Spitzenwert aus der Fritzbox gelesen. So erhält man einen annähernd realen Wert, wenn im lokalen Netz zum Beispiel gerade ein Streaming läuft und so das Netzwerk zusätzlich belastet wird.
 
 [English readme](https://github.com/Technik-Tueftler/Speedtest/blob/main/README.md)
@@ -72,6 +75,23 @@ Wird kein Verbindungsschlüpfi angegeben, erstellt das Programm automatisch ein 
 |avg_download_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Download von www.speedtest.net|Bits/s|
 |avg_upload_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für den Upload von www.speedtest.net|Bits/s|
 |ping_speedtest|int(11)|Ja|`NULL`|Zurückgegebener Wert für die Antwortzeit von www.speedtest.net. Dieser Wert unterscheidet sich stark und ist meist sehr hoch. Die Vermutung ist, dass hier auch die Durchlaufzeit des Programmes enthalten ist und spiegelt nicht die wahre Antwortzeit wieder.|ms|
+
+## Docker Compose Beispiel
+````commandline
+version: "2"
+services:
+  internet_speedtest:
+    image: techniktueftler/speedtest:latest
+    container_name: speedtest
+    environment:
+      - MBIT_THR_FROM_NETWORK_DOWNLOAD_TO_RUN=30
+      - MBIT_THR_FROM_NETWORK_UPLOAD_TO_RUN=10
+      - TZ=Europe/Berlin
+      - DB_CONNECTOR=mariadb+mariadbconnector://User:Password@192.193.194.195:3306/speedtest
+    volumes:
+      - /srv/dev-disk-by-uuid-0815/data/speedtest:/user/app/Speedtest/files/
+    restart: unless-stopped
+````
 
 ----
 ¹`Verbindungsschlüpfi` ist ein kreiertes Wort vom Verfasser p_servus und stellt die deutsche Übersetzung von `Connection string` dar.
